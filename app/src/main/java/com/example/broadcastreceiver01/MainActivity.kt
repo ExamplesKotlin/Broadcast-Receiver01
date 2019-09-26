@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var receiver: BroadcastReceiver
+    lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 //        filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED)
 //        registerReceiver(listenerObject, filter)
 
+        context = this
         val filter = IntentFilter()
         filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED)
         receiver = object : BroadcastReceiver() {
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         button.setOnClickListener {
-
+            sendBroadcast(Intent(context, Listener::class.java))
         }
 
     }
